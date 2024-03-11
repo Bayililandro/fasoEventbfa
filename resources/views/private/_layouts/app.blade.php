@@ -26,6 +26,8 @@
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
+      
+      @if(request()->routeIs('public.inscription-option') == false)
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex justify-content-center">
           <div
@@ -49,18 +51,7 @@
         <div
           class="navbar-menu-wrapper d-flex align-items-center justify-content-end"
         >
-          <!--<ul class="navbar-nav mr-lg-4 w-100">
-          <li class="nav-item nav-search d-none d-lg-block w-100">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="search">
-                  <i class="mdi mdi-magnify"></i>
-                </span>
-              </div>
-              <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
-            </div>
-          </li>
-        </ul> -->
+         
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown me-1">
               <a
@@ -218,11 +209,17 @@
           </button>
         </div>
       </nav>
+      @endif
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- 2eme navbar -->
+        @if(request()->routeIs('public.inscription-option') == false)
 
-       @include('private._layouts.sidebar')
+        @include('private._layouts.sidebar')
+        
+        @endif
+
+       
         <!-- fin de la deuxieme nav bar-->
 
         <!-- la partie de bienvenue -->
