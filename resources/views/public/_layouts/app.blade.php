@@ -65,6 +65,9 @@
         <div class="cta d-none d-md-flex align-items-center gap-2">
           <a href="#about" class="scrollto">Connexion</a>
           <a href="#about" class="scrollto">Inscription</a>
+          <a href="{{ route('private.admintableaudebord')}}" class="scrollto">Mon compte Ad</a>
+          <a href="{{ route('private.promoteurtableaudebord')}}" class="scrollto">Mon compte P</a>
+          <a href="{{ route('private.abonnetableaudebord')}}" class="scrollto">Mon compte Ab</a>
         </div>
       </div>
     </section>
@@ -73,8 +76,8 @@
     <header id="header" class="d-flex align-items-center">
       <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">
-          <h1><a href="index.html">FasoEvent</a></h1>
-          <!-- Uncomment below if you prefer to use an image logo -->
+          <h1><a href="{{route('acceuil')}}">FasoEvent</a></h1>
+          <!-- Uncomment below if yohtmlu prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets_public/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 

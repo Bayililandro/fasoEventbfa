@@ -25,7 +25,7 @@
               <article class="entry">
                 <div class="entry-img">
                   <img
-                    src="assets/img/blog/IMG-20240117-WA0002.jpg"
+                    src="{{asset('assets_public/img/blog/IMG-20240117-WA0002.jpg')}}"
                     alt=""
                     class="img-fluid"
                   />
@@ -77,7 +77,7 @@
               <article class="entry">
                 <div class="entry-img">
                   <img
-                    src="assets/img/blog/IMG-20240117-WA0004.jpg"
+                    src="{{asset('assets_public/img/blog/IMG-20240117-WA0004.jpg')}}"
                     alt=""
                     class="img-fluid"
                   />
