@@ -27,7 +27,7 @@
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       
-      @if(request()->routeIs('public.inscription-option') == false)
+      @if(request()->routeIs('public.inscription-option') == false && request()->routeIs('public.inscription-promoteur') == false && request()->routeIs('public.inscription-abonne') == false && request()->routeIs('public.connexion') == false)
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex justify-content-center">
           <div
@@ -213,7 +213,7 @@
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- 2eme navbar -->
-        @if(request()->routeIs('public.inscription-option') == false)
+        @if(request()->routeIs('public.inscription-option') == false && request()->routeIs('public.inscription-promoteur') == false && request()->routeIs('public.connexion') == false)
 
         @include('private._layouts.sidebar')
         

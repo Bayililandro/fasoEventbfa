@@ -15,15 +15,15 @@
               <form class="pt-3">
                 <div class="mt-3">
                     
-                  <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="../../index.html">inscription Promoteur</a>
+                  <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="{{route('public.inscription-promoteur')}}">inscription Promoteur</a>
                 </div>
                 <div class="mt-3">
                     
-                    <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="../../index.html">inscription Abonné</a>
+                    <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="{{route('public.inscription-abonne')}}">inscription Abonné</a>
                   </div>
                   <div class="mt-3">
                     
-                    <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="../../index.html">Connexion</a>
+                    <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="{{ route('public.connexion') }}">Connexion</a>
                   </div>
               </form>
             </div>
