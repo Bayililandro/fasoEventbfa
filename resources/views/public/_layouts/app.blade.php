@@ -63,7 +63,7 @@
         </div>
 
         <div class="cta d-none d-md-flex align-items-center gap-2">
-          <a href="#About" class="scrollto">Connexion</a>
+          <a href="{{route('public.connexion')}}" class="scrollto">Connexion</a>
           <a href="{{route('public.inscription-option')}}" class="scrollto">Inscription</a>
           <a href="{{ route('private.admintableaudebord')}}" class="scrollto">Mon compte Ad</a>
           <a href="{{ route('private.promoteurtableaudebord')}}" class="scrollto">Mon compte P</a>

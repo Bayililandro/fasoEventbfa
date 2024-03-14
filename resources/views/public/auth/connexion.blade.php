@@ -7,9 +7,11 @@
         <div class="row flex-grow">
           <div class="col-lg-6 d-flex align-items-center justify-content-center">
             <div class="auth-form-transparent text-left p-3">
-              <div class="brand-logo">
+            <div class="brand-logo">
+              <a href="{{route('acceuil')}}">
                 <img src="../../images/logo.svg" alt="logo">
-              </div>
+            </a>
+            </div>
               <h4>Bienvenue!</h4>
               <h6 class="font-weight-light">Happy to see you again!</h6>
               <form class="pt-3">
