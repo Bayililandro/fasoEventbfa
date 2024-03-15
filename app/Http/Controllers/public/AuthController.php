@@ -79,6 +79,57 @@ class AuthController extends Controller
         return view('public.auth.inscription-abonne');
     }
 
+     #fonction pour gerer les inscription des promoteur
+    #request permet de recuperer les données du formulaire
+    public function inscriptionAbonneAction(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nom' => 'required',
+                'prenom' => 'required',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:4',
+                'adresse' => 'required',
+                'telephone' => 'required|min:8',
+                'preferences' => 'required',
+            ],
+            [
+                'nom.required' => 'Le champ nom et prénom est requis.',
+                'prenom.required' => 'Le champ nomcomplet et prénom est requis.',
+                'email.required' => 'Le champ email est requis.',
+                'email.email' => 'Veuillez entrer une adresse email valide.',
+                'email.max' => 'L\'adresse email ne doit pas dépasser :max caractères.',
+                'email.unique' => 'Cette adresse email est déjà utilisée.',
+                'password.min' => 'Le mot de passe doit contenir au moins :min caractères.',
+                'adresse.required' => 'Le champ adresse est requis.',
+                'telephone.required' => 'Le champ telephone est requis.',
+                'preferences.required' => 'Le champ preferences est requis.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $abonne = User::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'password' => $request->password,
+            'email' => $request->email,
+            'adresse' => $request->adresse,
+            'telephone' => $request->telephone,
+            'preferences' => $request->preferences,
+            'role' => "abonne",
+        ]);
+
+        $abonne->save();
+
+        return redirect()->route('public.connexion')->with('success','Inscription réussie ! Connectez-vous maintenant.');
+    }
+
     public function connexion(){
         return view('public.auth.connexion');
     }

@@ -14,7 +14,8 @@
               </div>
               <h4>Inscription Abonné!</h4>
               <h6 class="font-weight-light">Veuillez entrer vos coordonnéss pour créer un compte</h6>
-              <form class="pt-3">
+              <form action="{{route('public.inscription-abonne-action')}}" class="pt-3" method="POST">
+                @csrf
                 <div class="form-group">
                   <label>Nom</label>
                   <div class="input-group">
@@ -23,7 +24,10 @@
                         <i class="mdi mdi-account-outline text-primary"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" placeholder="Entrez votre nom">
+                    <input type="text" name="nom" class="form-control form-control-lg border-left-0" placeholder="Entrez votre nom">
+                    @if($errors->has('nom'))
+                    <span class="text-danger">{{$errors->first('nom')}}</span>
+                    @endif
                   </div>
                 </div>
                 <div class="form-group">
@@ -34,7 +38,10 @@
                         <i class="mdi mdi-account-outline text-primary"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" placeholder="Entrez votre prénom">
+                    <input type="text" name="prenom" class="form-control form-control-lg border-left-0" placeholder="Entrez votre prénom">
+                    @if($errors->has('prenom'))
+                    <span class="text-danger">{{$errors->first('prenom')}}</span>
+                    @endif
                   </div>
                 </div>
 
@@ -46,7 +53,10 @@
                         <i class="mdi mdi-email-outline text-primary"></i>
                       </span>
                     </div>
-                    <input type="email" class="form-control form-control-lg border-left-0" placeholder="Entrez votre email">
+                    <input type="email" name="email" class="form-control form-control-lg border-left-0" placeholder="Entrez votre email">
+                    @if($errors->has('email'))
+                    <span class="text-danger">{{$errors->first('email')}}</span>
+                    @endif
                   </div>
                 </div>
               
@@ -58,7 +68,10 @@
                         <i class="mdi mdi-lock-outline text-primary"></i>
                       </span>
                     </div>
-                    <input type="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Entrez votre mot de passe">                        
+                    <input type="password" name="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Entrez votre mot de passe">
+                    @if($errors->has('password'))
+                    <span class="text-danger">{{$errors->first('password')}}</span>
+                    @endif                        
                   </div>
                 </div>
 
@@ -70,7 +83,10 @@
                         <i class="mdi mdi-lock-outline text-primary"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputAdresse" placeholder="Entrez votre adresse">                        
+                    <input type="text" name="adresse" class="form-control form-control-lg border-left-0" id="exampleInputAdresse" placeholder="Entrez votre adresse">
+                    @if($errors->has('adresse'))
+                    <span class="text-danger">{{$errors->first('adresse')}}</span>
+                    @endif                        
                   </div>
 
                 <div class="form-group">
@@ -81,7 +97,10 @@
                         <i class="mdi mdi-lock-outline text-primary"></i>
                       </span>
                     </div>
-                    <input type="text" class="form-control form-control-lg border-left-0" id="exampleInputSiege" placeholder="Entrez votre telephone">                        
+                    <input type="text" name="telephone" class="form-control form-control-lg border-left-0" id="exampleInputSiege" placeholder="Entrez votre telephone">
+                    @if($errors->has('telephone'))
+                    <span class="text-danger">{{$errors->first('telephone')}}</span>
+                    @endif                        
                   </div>
                 </div>
                 
@@ -93,21 +112,24 @@
                         <i class="mdi mdi-lock-outline text-primary"></i>
                       </span>
                     </div>
-                    <textarea name="" class="form-control form-control-lg border-left-0" placeholder="Entrez vos préférences" id="" cols="30" rows="10"></textarea>
+                    <textarea name="preferences" class="form-control form-control-lg border-left-0" placeholder="Entrez vos préférences" id="" cols="30" rows="10"></textarea>
+                    @if($errors->has('preferences'))
+                    <span class="text-danger">{{$errors->first('preferences')}}</span>
+                    @endif
                   </div>
                 </div>
 
                 <div class="mb-4">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
+                      <input type="checkbox" require class="form-check-input">
                       j'accepte les conditions d'inscription
                     </label>
                   </div>
                 </div>
 
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" href="../../index.html">S'inscrire</a>
+                  <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn"><button type="submit">S'inscrire</button></a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   S'incrire en tant que promoteur <a href="{{ route('public.inscription-promoteur') }}" class="text-primary">Connexion</a>
