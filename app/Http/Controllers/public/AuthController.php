@@ -5,6 +5,7 @@ namespace App\Http\Controllers\public;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -132,5 +133,70 @@ class AuthController extends Controller
 
     public function connexion(){
         return view('public.auth.connexion');
+    }
+
+    
+    public function connexionAction(Request $request)
+    {
+        #dd($request->all());#pour tester si les données envoyées
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+            ],
+            [
+                'email.required' => 'Le champ email est requis.',
+                'email.email' => 'Veuillez entrer une adresse email valide.',
+                'password.required' => 'Le champ mot de passe est requis.',
+            ]
+        );
+
+        //On retourne tout les erreurs
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+       # dd($request->email);#pour tester si les données envoyées
+
+        // Vérifier si un utilisateur avec cet email existe
+        $user = User::where('email', $request->email)->first();
+
+        #dd($user);#pour tester si les données existent
+
+        if (!$user) {
+            return redirect()->back()
+                ->withErrors(['login' => "Cet email n'a pas de compte"])
+                ->withInput();
+        }
+
+         #dd($user);
+
+        //On le connecte ici, il gere l'authentification
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            return redirect()->back()
+                ->withErrors(['login' => 'Mot de passe est incorrect'])
+                ->withInput();
+        }
+
+        $request->session()->regenerate();
+
+        //On voie sur quel page on dois le redirigé
+        $user = Auth::user();
+        #dd($user);
+        $redirectRoute = '';
+
+        if ($user->role == 'admin') {
+            $redirectRoute = 'private.admintableaudebord';
+        } elseif ($user->role == 'promoteur') {
+            $redirectRoute = 'private.promoteurtableaudebord';
+        } elseif ($user->role == 'abonne') {
+            $redirectRoute = 'private.abonnetableaudebord';
+        }
+
+        if (!empty($redirectRoute)) {
+            return redirect()->route($redirectRoute)->withMessage("Connexion réussie !");
+        }
     }
 }
