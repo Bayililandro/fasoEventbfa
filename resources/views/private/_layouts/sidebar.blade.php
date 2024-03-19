@@ -1,5 +1,6 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <!--Admin-->
+          @if(auth()->user()->role=='admin')
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="index.html">
@@ -35,9 +36,11 @@
               </a>
             </li>
           </ul>
+          @endif
           <!--Fin Admin-->
 
           <!--Promoteur-->
+          @if(auth()->user()->role=='promoteur')
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="index.html">
@@ -73,10 +76,12 @@
               </a>
             </li>
           </ul>
+          @endif
           <!--Fin Promoteur-->
 
           <!--Abonné-->
-          <ul class="nav">
+          @if(auth()->user()->role=='abonne')
+       <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="index.html">
                 <i class="mdi mdi-home menu-icon"></i>
@@ -105,5 +110,6 @@
               </a>
             </li>
           </ul>
+       @endif
           <!--Fin Abonné-->
         </nav>

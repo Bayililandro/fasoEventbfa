@@ -58,16 +58,30 @@
             ><a href="{{asset('mailto:contact@example.com')}}">fasoevent@gmail.com</a></i
           >
           <i class="bi bi-phone d-flex align-items-center ms-4"
-            ><span>+22662815688</span></i
+            ><span>+22607673203</span></i
           >
         </div>
 
-        <div class="cta d-none d-md-flex align-items-center gap-2">
-          <a href="{{route('public.connexion')}}" class="scrollto">Connexion</a>
-          <a href="{{route('public.inscription-option')}}" class="scrollto">Inscription</a>
+        <div class="cta d-none d-md-flex align-items-center gap-2">          
+          @auth
           <a href="{{ route('private.admintableaudebord')}}" class="scrollto">Mon compte Ad</a>
           <a href="{{ route('private.promoteurtableaudebord')}}" class="scrollto">Mon compte P</a>
           <a href="{{ route('private.abonnetableaudebord')}}" class="scrollto">Mon compte Ab</a>
+
+          <a class="scrollto" style="cursor: pointer" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                  Déconnexion
+                </a>
+
+                <form id="logout-form" action="{{route('deconnexion')}}" method="POST">
+                  @csrf
+                </form>
+
+
+          @else
+          <a href="{{route('public.inscription-option')}}" class="scrollto">Inscription</a>
+         <a href="{{route('public.connexion')}}" class="scrollto">Connexion</a>
+           @endauth
+           
         </div>
       </div>
     </section>

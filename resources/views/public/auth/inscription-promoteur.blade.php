@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" ><button type="submit">S'inscrire</button></a>
+                  <button type="submit" class="btn btn-block btn-primary w-100 text-white btn-lg font-weight-medium auth-form-btn" >S'inscrire</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   S'incrire en tant que abonne <a href="{{ route('public.inscription-abonne') }}" class="text-primary">S'inscrire</a>
