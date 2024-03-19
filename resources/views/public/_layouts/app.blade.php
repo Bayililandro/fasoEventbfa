@@ -62,12 +62,20 @@
           >
         </div>
 
-        <div class="cta d-none d-md-flex align-items-center gap-2">          
+        <div class="cta d-none d-md-flex align-items-center gap-2">        
           @auth
+         
+          @if(auth()->user()->role == 'admin')
           <a href="{{ route('private.admintableaudebord')}}" class="scrollto">Mon compte Ad</a>
-          <a href="{{ route('private.promoteurtableaudebord')}}" class="scrollto">Mon compte P</a>
-          <a href="{{ route('private.abonnetableaudebord')}}" class="scrollto">Mon compte Ab</a>
+          @endif
 
+          @if(auth()->user()->role == 'promoteur')
+          <a href="{{ route('private.promoteurtableaudebord')}}" class="scrollto">Mon compte P</a>
+          @endif
+          
+          @if(auth()->user()->role == 'abonne')
+          <a href="{{ route('private.abonnetableaudebord')}}" class="scrollto">Mon compte Ab</a>
+         @endif
           <a class="scrollto" style="cursor: pointer" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                   Déconnexion
                 </a>
