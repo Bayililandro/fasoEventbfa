@@ -23188,3 +23188,19 @@ dl li {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+.image-profil{
+  height: auto;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 1160px){
+  .image-profil{
+    height: auto !important;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
+  }
+}

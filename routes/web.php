@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\private\abonne\AbonneTableaudebordController;
 use App\Http\Controllers\private\admin\AdminTableaudebordController;
+use App\Http\Controllers\private\ProfilController;
 use App\Http\Controllers\private\promoteur\PromoteurTableaudebordController;
 use App\Http\Controllers\public\AcceuilController;
 use App\Http\Controllers\public\AuthController;
@@ -44,3 +45,6 @@ Route::get('/inscription-abonne', [AuthController::class, 'InscriptionAbonne'])-
 Route::post('/inscription-abonne-action', [AuthController::class, 'InscriptionAbonneAction'])->name('public.inscription-abonne-action');
 Route::get('/connexion', [AuthController::class, 'connexion'])->name('public.connexion');
 Route::post('/connexion-action', [AuthController::class, 'connexionAction'])->name('public.connexion-action');
+
+#Profil
+Route::get('/profil', [ProfilController::class, 'index'])->name('private.profil-index');

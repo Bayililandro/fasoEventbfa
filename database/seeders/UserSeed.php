@@ -17,9 +17,9 @@ class UserSeed extends Seeder
         #Les Administrateurs
         User::create(
             [
-                'nom' => 'SABIDANI',
-                'prenom' => 'Elisee',
-                'email' => 'sabidani@gmail.com',
+                'nom' => 'BAYILI',
+                'prenom' => 'Landri',
+                'email' => 'landri@gmail.com',
                 'email_verified_at' => now(),
                 'password' => 'password',
                 'telephone' => '76980689',

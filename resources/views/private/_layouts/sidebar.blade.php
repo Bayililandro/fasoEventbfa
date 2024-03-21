@@ -30,7 +30,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="pages/profil/profil.html">
+              <a class="nav-link" href="{{ route('private.profil-index') }}">
                 <i class="mdi mdi-account-box-outline menu-icon"></i>
                 <span class="menu-title">Profil A</span>
               </a>
@@ -56,7 +56,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/utilisateurs/utilisateurs.html">
+              <a class="nav-link" href="{{ route('private.profil-index') }}">
                 <i class="mdi mdi-account-multiple menu-icon"></i>
                 <span class="menu-title">Abonnés</span>
               </a>
@@ -70,7 +70,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="pages/profil/profil.html">
+              <a class="nav-link" href="{{ route('private.profil-index') }}">
                 <i class="mdi mdi-account-box-outline menu-icon"></i>
                 <span class="menu-title">Profil P</span>
               </a>
