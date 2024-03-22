@@ -51,7 +51,7 @@
                             </div>
                       </div>
                       <!--end col-->
-                      
+
                       <!--end col-->
                     </div>
                     <!--end row-->
@@ -853,90 +853,108 @@
                             </div>
                             <br />
 
-                            <div class="card">
-                              <div class="card-body">
-                                <h5 class="card-title mb-3">
-                                  Edition les informations d'authentification
-                                </h5>
-                                <br />
-                                <form action="javascript:void(0);">
-                                  <div class="row g-2">
-                                    <div class="col-lg-4">
-                                      <div>
-                                        <label
-                                          for="oldpasswordInput"
-                                          class="form-label"
-                                          >Ancien mot de passe*</label
-                                        >
-                                        <input
-                                          type="password"
-                                          class="form-control"
-                                          id="oldpasswordInput"
-                                          placeholder="Entrez votre mot de passe actuel"
-                                        />
-                                      </div>
+                             <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">
+                                                Edition les informations d'authentification
+                                            </h5>
+                                            <br />
+                                            <form action="{{ route('private.edit-password') }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="row g-2">
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label for="confirmpasswordInput" class="form-label">Nouveau
+                                                                mot de
+                                                                passe*</label>
+                                                            <input type="password" name="new_password"
+                                                                class="form-control" id="confirmpasswordInput"
+                                                                placeholder="Nouveau mot de passe" />
+                                                            @if ($errors->has('new_password'))
+                                                            <span class="text-danger">{{ $errors->first('new_password')
+                                                                }}</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label for="newpasswordInput" class="form-label">Répétez
+                                                                votre nouveau mot
+                                                                de passe*</label>
+                                                            <input type="password" class="form-control"
+                                                                id="newpasswordInput" name="new_password_confirmation"
+                                                                placeholder="Repetez mot de passe" />
+
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <br />
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <a href="javascript:void(0);"
+                                                                class="link-primary text-decoration-underline">Mot de
+                                                                passe oublier ?</a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="text-end">
+                                                            <button type="submit"
+                                                                onclick="return confirm('Etes vous sûr de vouloir enrregistré les nouveaux changement ???')"
+                                                                class="btn btn-primary text-white">
+                                                                Changer de mot de passe
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                </div>
+                                                <!--end row-->
+                                            </form>
+                                        </div>
                                     </div>
-                                    <!--end col-->
-                                    <div class="col-lg-4">
-                                      <div>
-                                        <label
-                                          for="newpasswordInput"
-                                          class="form-label"
-                                          >Nouveau mot de passe*</label
-                                        >
-                                        <input
-                                          type="password"
-                                          class="form-control"
-                                          id="newpasswordInput"
-                                          placeholder="Entrez votre nouveau mot de passe"
-                                        />
-                                      </div>
+                                     <br>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">
+                                                Changer votre image de profil
+                                            </h5>
+                                            <br />
+                                            <form action="{{ route('private.edit-image') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="row g-2">
+                                                    <div class="col-lg-12">
+                                                        <div>
+                                                            <label for="confirmpasswordInput" class="form-label">Choisissez une image*</label>
+                                                            <input type="file" name="new_image"
+                                                                class="form-control" id="confirmFileInput" />
+                                                            @if ($errors->has('new_image'))
+                                                            <span class="text-danger">{{ $errors->first('new_image')
+                                                                }}</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <br />
+                                                    
+                                                    <!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="text-end">
+                                                            <button type="submit"
+                                                                onclick="return confirm('Etes vous sûr de vouloir enrregistré les nouveaux changement ???')"
+                                                                class="btn btn-primary text-white">
+                                                                Changer l'image
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                </div>
+                                                <!--end row-->
+                                            </form>
+                                        </div>
                                     </div>
-                                    <!--end col-->
-                                    <div class="col-lg-4">
-                                      <div>
-                                        <label
-                                          for="confirmpasswordInput"
-                                          class="form-label"
-                                          >Confirmer votre nouveau mot de
-                                          passe*</label
-                                        >
-                                        <input
-                                          type="password"
-                                          class="form-control"
-                                          id="confirmpasswordInput"
-                                          placeholder="Répétez votre nouveau mot de passe"
-                                        />
-                                      </div>
-                                    </div>
-                                    <!--end col-->
-                                    <br />
-                                    <div class="col-lg-12">
-                                      <div class="mb-3">
-                                        <a
-                                          href="javascript:void(0);"
-                                          class="link-primary text-decoration-underline"
-                                          >Mot de passe oublier ?</a
-                                        >
-                                      </div>
-                                    </div>
-                                    <!--end col-->
-                                    <div class="col-lg-12">
-                                      <div class="text-end">
-                                        <button
-                                          type="submit"
-                                          class="btn btn-primary text-white"
-                                        >
-                                          Changer de mot de passe
-                                        </button>
-                                      </div>
-                                    </div>
-                                    <!--end col-->
-                                  </div>
-                                  <!--end row-->
-                                </form>
-                              </div>
-                            </div>
                           </div>
                           <!--end tab-pane-->
                         </div>
