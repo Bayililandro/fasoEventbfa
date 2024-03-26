@@ -1,0 +1,496 @@
+==============CONTROLLER=================
+<?php
+
+namespace App\Http\Controllers\api\public;
+
+use App\Http\Controllers\api\BaseController;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class AuthController extends Controller
+{
+    // public function inscription(Request $request)
+    // {
+    //     try {
+    //         $validator = Validator::make(
+    //             $request->all(),
+    //             [
+    //                 'nomcomplet' => 'required',
+    //                 'email' => 'required|email|max:255|unique:users',
+    //                 'siege' => 'required',
+    //                 'activites' => 'required',
+    //                 'telephone' => 'required',
+    //                 'password' => 'required|min:4',
+    //             ],
+    //             [
+    //                 'nomcomplet.required' => 'Le champ nom et prénom est requis.',
+    //                 'email.required' => 'Le champ email est requis.',
+    //                 'email.email' => 'Veuillez entrer une adresse email valide.',
+    //                 'email.max' => 'L\'adresse email ne doit pas dépasser :max caractères.',
+    //                 'email.unique' => 'Cette adresse email est déjà utilisée.',
+    //                 'password.required' => 'Le champ mot de passe est requis.',
+    //                 'password.min' => 'Le mot de passe doit contenir au moins :min caractères.',
+    //                 'siege.required' => 'Le champ siege est requis.',
+    //                 'telephone.required' => 'Le champ telephone est requis.',
+    //                 'activites.required' => 'Le champ domaines d\'activites est requis.',
+    //             ]
+    //         );
+    //         if ($validator->fails()) {
+    //             return $this->sendError('Erreur de validation des champs.', $validator->errors(), 400);
+    //         }
+
+    //         $promoteur = User::create([
+    //             'nomcomplet' => $request->nomcomplet,
+    //             'email' => $request->email,
+    //             'password' => $request->password,
+    //             'siege' => $request->siege,
+    //             'telephone' => $request->telephone,
+    //             'activites' => $request->activites,
+    //             'role' => "promoteur",
+    //             'status' => "attente",
+    //         ]);
+
+    //         $promoteur->save();
+
+    //         return $this->sendResponse(['user' => $promoteur], 'Inscription reussis !');
+
+
+    //     } catch (\Throwable $th) {
+    //         return $this->sendError('Une erreur est survenue lors de l\'inscription.', $th->getMessage(), 400);
+    //     }
+    // }
+
+
+    public function inscriptionPromoteur(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'nomcomplet' => 'required',
+                    'email' => 'required|email|max:255|unique:users',
+                    'siege' => 'required',
+                    'activites' => 'required',
+                    'telephone' => 'required',
+                    'password' => 'required|min:4',
+                ],
+                [
+                    'nomcomplet.required' => 'Le champ nom et prénom est requis.',
+                    'email.required' => 'Le champ email est requis.',
+                    'email.email' => 'Veuillez entrer une adresse email valide.',
+                    'email.max' => 'L\'adresse email ne doit pas dépasser :max caractères.',
+                    'email.unique' => 'Cette adresse email est déjà utilisée.',
+                    'password.required' => 'Le champ mot de passe est requis.',
+                    'password.min' => 'Le mot de passe doit contenir au moins :min caractères.',
+                    'siege.required' => 'Le champ siege est requis.',
+                    'telephone.required' => 'Le champ telephone est requis.',
+                    'activites.required' => 'Le champ domaines d\'activites est requis.',
+                ]
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Erreur de validation du formulaire!',
+                    'data' => $validator->errors(),
+                ], 422);
+            }
+
+            $promoteur = User::create([
+                'nomcomplet' => $request->nomcomplet,
+                'email' => $request->email,
+                'password' => $request->password,
+                'siege' => $request->siege,
+                'telephone' => $request->telephone,
+                'activites' => $request->activites,
+                'role' => "promoteur",
+                'status' => "attente",
+            ]);
+
+            $data['user'] = $promoteur;
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Inscription reuissi avec succès.',
+                'data' => $data,
+            ];
+
+            return response()->json($response, 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function inscriptionAbonne(Request $request)
+    {
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'nom' => 'required',
+                    'prenom' => 'required',
+                    'email' => 'required|email|max:255|unique:users',
+                    'preferences' => 'required',
+                    'telephone' => 'required',
+                    'password' => 'required|min:4',
+                ],
+                [
+                    'nomcomplet.required' => 'Le champ nom et prénom est requis.',
+                    'email.required' => 'Le champ email est requis.',
+                    'email.email' => 'Veuillez entrer une adresse email valide.',
+                    'email.max' => 'L\'adresse email ne doit pas dépasser :max caractères.',
+                    'email.unique' => 'Cette adresse email est déjà utilisée.',
+                    'password.required' => 'Le champ mot de passe est requis.',
+                    'password.min' => 'Le mot de passe doit contenir au moins :min caractères.',
+                    'telephone.required' => 'Le champ telephone est requis.',
+                    'activites.required' => 'Le champ domaines d\'activites est requis.',
+                ]
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Erreur de validation du formulaire!',
+                    'data' => $validator->errors(),
+                ], 422);
+            }
+
+            $promoteur = User::create([
+                'nom' => $request->nom,
+                'prenom' => $request->prenom,
+                'email' => $request->email,
+                'password' => $request->password,
+                'telephone' => $request->telephone,
+                'preferences' => $request->preferences,
+                'role' => "abonne",
+            ]);
+
+            $data['user'] = $promoteur;
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Inscription reuissi avec succès. ',
+                'data' => $data,
+            ];
+
+            return response()->json($response, 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function connexion(Request $request)
+    {
+        try {
+            $validate = Validator::make($request->all(), [
+                'email' => 'required|string|email',
+                'password' => 'required|string'
+            ]);
+
+            if ($validate->fails()) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Erreur de validation du formulaire!',
+                    'data' => $validate->errors(),
+                ], 403);
+            }
+
+            // On verifie si l'email existe ou les donné ne sont pas correct
+            $user = User::where('email', $request->email)->first();
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Email ou mot de passe incorrect !'
+                ], 401);
+            }
+
+            $data['token'] = $user->createToken($request->email)->plainTextToken;
+            $data['user'] = $user;
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Connexion reussis !!!.',
+                'data' => $data,
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => "Vous etes deconnecter avec succès !"
+        ], 200);
+    }
+}
+
+
+
+<?php
+
+namespace App\Http\Controllers\api\private\admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Activite;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class ActiviteController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        try {
+            $data['activites'] = $this->activites();
+
+            return response()->json([
+                'status' => 'success',
+                'message', "Liste des dommaines d'activité",
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request)
+    {
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        try {
+            // Valider les données de la requête
+            $validate = Validator::make($request->all(), [
+                'nom' => 'required|string'
+            ]);
+
+            if ($validate->fails()) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Erreur de validation du formulaire!',
+                    'data' => $validate->errors(),
+                ], 422);
+            }
+
+            // Créer une nouvelle activité
+            Activite::create([
+                'nom' => $request->nom,
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Activité crée avec succès.',
+                'data' => $this->activites()
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        try {
+            // Récupérer l'activité spécifiée par son ID
+            $activite = Activite::find($id);
+
+            if (is_null($activite)) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => "Domaine d'activité introuvable",
+                ], 404);
+            }
+
+            $data['activite'] = $activite;
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        try {
+            $validate = Validator::make($request->all(), [
+                'nom' => 'required|string'
+            ]);
+
+            if ($validate->fails()) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Erreur de validation du formulaire!',
+                    'data' => $validate->errors(),
+                ], 422);
+            }
+
+            $activite = Activite::find($id);
+
+            if (is_null($activite)) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => "Domaine d'activité introuvable",
+                ], 404);
+            }
+
+            $activite->update($request->all());
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Product is updated successfully.',
+                'data' => $this->activites(),
+            ];
+
+            return response()->json($response, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        try {
+            // Récupérer l'activité spécifiée par son ID
+            $activite = Activite::find($id);
+
+            if (is_null($activite)) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => "Domaine d'activité introuvable",
+                ], 404);
+            }
+
+            Activite::destroy($id);
+            return response()->json([
+                'status' => 'success',
+                'message' => "Domain d'activité supprimer avec succès.",
+                'data' => $this->activites()
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Erreur serveur ! ' . $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function activites()
+    {
+        $domaine_activites = Activite::orderBy('created_at', 'desc')->get();
+        // $domaine_activites = DB::select('SELECT * FROM activites ORDER BY created_at DESC');
+
+        return $domaine_activites;
+    }
+}
+
+
+==================ROUTES================
+Route::controller(AuthController::class)->group(function() {
+    Route::post('/inscription-promoteur', 'inscriptionPromoteur');
+    Route::post('/inscription-abonne', 'inscriptionAbonne');
+    Route::post('/connexion', 'connexion');
+});
+
+Route::middleware('auth:sanctum')->group( function () {
+    
+    Route::middleware(['role:admin'])->group(function () {
+        Route::ApiResource('activites',ActiviteController::class);
+        Route::ApiResource('evenements',EvenementController::class);
+    });
+
+    Route::post('/deconnexion', [AuthController::class, 'logout']);
+});
+
+
+===================SEEDERS ===================
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Activite;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class ActiviteSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Activite::create(
+            [
+                'nom' => 'Concert',
+            ]
+        );
+
+        Activite::create(
+            [
+                'nom' => 'Cinema',
+            ]
+        );
+
+        Activite::create(
+            [
+                'nom' => 'Foire',
+            ]
+        );
+    }
+}
